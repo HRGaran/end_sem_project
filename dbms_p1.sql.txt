@@ -1,0 +1,111 @@
+-- Create the database
+CREATE DATABASE dbms_p1;
+
+-- Use the created database
+USE dbms_p1;
+
+-- Create the citizen table
+CREATE TABLE citizen (
+    first_name VARCHAR(30),
+    middle_name VARCHAR(30),
+    last_name VARCHAR(30),
+    aadhar CHAR(12) PRIMARY KEY,
+    gender CHAR(1),
+    dob DATE,
+    phone_no CHAR(10),
+    mail_id VARCHAR(50)
+);
+
+-- Create the address table
+CREATE TABLE address (
+    aadhar CHAR(12) PRIMARY KEY,
+    street VARCHAR(100),
+    city VARCHAR(30),
+    state VARCHAR(20),
+    FOREIGN KEY (aadhar) REFERENCES citizen(aadhar)
+);
+
+-- Create the offices table
+CREATE TABLE offices (
+    district VARCHAR(30) PRIMARY KEY,
+    rto_address VARCHAR(200)
+);
+
+-- Create the inspector table
+CREATE TABLE inspector (
+    id INT PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(100),
+    privilege VARCHAR(5)
+);
+
+-- Create the llr table
+CREATE TABLE llr (
+    aadhar CHAR(12),
+    name VARCHAR(50),
+    cov VARCHAR(20),
+    edate DATE,
+    eid VARCHAR(10),
+    llr_id INT PRIMARY KEY,
+    epwd CHAR(10),
+    passwd VARCHAR(50),
+    mail_id VARCHAR(50),
+    llr_status INT,
+    llr_issue_date DATE,
+    FOREIGN KEY (aadhar) REFERENCES citizen(aadhar)
+);
+
+-- Create the reg table
+CREATE TABLE reg (
+    aadhar CHAR(12),
+    name VARCHAR(50),
+    cov VARCHAR(30),
+    model VARCHAR(20),
+    company VARCHAR(20),
+    rdate DATE,
+    r_id INT PRIMARY KEY,
+    passwd VARCHAR(30),
+    mail_id VARCHAR(50),
+    reg_status INT,
+    reg_issue_date DATE,
+    vno VARCHAR(20),
+    reg_expiry_date DATE,
+    FOREIGN KEY (aadhar) REFERENCES citizen(aadhar)
+);
+
+-- Create the dl table
+CREATE TABLE dl (
+    aadhar CHAR(12),
+    name VARCHAR(50),
+    cov VARCHAR(20),
+    edate DATE,
+    eid VARCHAR(10),
+    dl_id INT PRIMARY KEY,
+    passwd VARCHAR(50),
+    mail_id VARCHAR(50),
+    dl_status INT,
+    dl_issue_date DATE,
+    FOREIGN KEY (aadhar) REFERENCES citizen(aadhar)
+);
+
+-- Create the license table
+CREATE TABLE license (
+    id INT PRIMARY KEY,
+    aadhar CHAR(12),
+    name VARCHAR(50),
+    license_no VARCHAR(20),
+    cov VARCHAR(20),
+    license_issue_date DATE,
+    license_expiry_date DATE,
+    mail_id VARCHAR(50),
+    FOREIGN KEY (aadhar) REFERENCES citizen(aadhar)
+);
+
+-- Create the complaint table
+CREATE TABLE complaint (
+    aadhar CHAR(12),
+    cdate DATE,
+    cdesc TEXT,
+    cid INT PRIMARY KEY,
+    FOREIGN KEY (aadhar) REFERENCES citizen(aadhar)
+);
